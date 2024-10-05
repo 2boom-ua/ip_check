@@ -1,6 +1,6 @@
 # ip_check
 <div align="center">  
-    <img src="https://github.com/2boom-ua/ip_check/blob/main/ip_check.jpg?raw=true" alt="" width="300" height="72">
+    <img src="https://github.com/2boom-ua/ip_check/blob/main/ip_check.jpg?raw=true" alt="" width="260" height="62">
 </div>
 ### Overview
 
