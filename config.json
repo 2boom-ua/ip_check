@@ -1,0 +1,124 @@
+{
+    "TELEGRAM": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ],
+        "CHAT_IDS": [
+            "first chat_id",
+            "second chat_id",
+            "...."
+        ]
+    },
+    "DISCORD": {
+        "ON": false,
+        "WEBHOOK_URLS": [
+            "first url",
+            "second url",
+            "...."
+        ]
+    },
+    "SLACK": {
+        "ON": false,
+        "WEBHOOK_URLS": [
+            "first url",
+            "second url",
+            "...."
+        ]
+    },
+    "GOTIFY": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ],
+        "CHAT_URLS": [
+            "first server_url",
+            "second server_url",
+            "...."
+        ]
+    },
+    "NTFY": {
+        "ON": false,
+        "WEBHOOK_URLS": [
+            "first url",
+            "second url",
+            "...."
+		]
+    },
+    "PUSHBULLET": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ]
+    },
+    "PUSHOVER": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ],
+        "USER_KEYS": [
+            "first user_key",
+            "second user_key",
+            "...."
+        ]
+    },
+    "MATRIX": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ],
+        "SERVER_URLS": [
+            "first server_url",
+            "second server_url",
+            "...."
+        ],
+        "ROOM_IDS": [
+            "!first room_id",
+            "!second room_id",
+            "...."
+        ]
+    },
+    "MATTERMOST": {
+        "ON": false,
+        "WEBHOOK_URLS": [
+            "first url",
+            "second url",
+            "...."
+        ]
+    },
+    "ROCKET": {
+        "ON": false,
+        "TOKENS": [
+            "first tocken",
+            "second tocken",
+            "...."
+        ],
+		"USER_IDS": [
+            "first user_id",
+            "second user_id",
+            "...."
+        ],
+        "SERVER_URLS": [
+           "first server_url",
+            "second server_url",
+            "...."
+        ],
+		"CHANNEL_IDS": [
+            "#first channel",
+            "#second channel",
+            "...."
+        ]
+    },
+    "DEFAULT_DOT_STYLE": true,
+    "MIN_REPEAT": 15
+}
