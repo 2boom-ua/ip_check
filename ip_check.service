@@ -1,0 +1,12 @@
+[Unit]
+Description=check external ip changes services
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /opt/ip_check/ip_check.py
+
+[Install]
+WantedBy=multi-user.target
+
