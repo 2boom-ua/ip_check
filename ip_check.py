@@ -9,7 +9,7 @@ import time
 import requests
 from schedule import every, repeat, run_pending
 
-def getExternalIp():
+def getExternalIp() -> str:
 	for url in urls:
 		try:
 			response = requests.get(url)
@@ -20,7 +20,7 @@ def getExternalIp():
 	return None
 
 
-def getHostName():
+def getHostName() -> str:
 	"""Get system hostname"""
 	hostname = ""
 	hostname_path = '/proc/sys/kernel/hostname'
