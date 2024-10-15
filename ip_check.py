@@ -6,6 +6,7 @@
 import json
 import os
 import time
+import socket
 import requests
 from schedule import every, repeat, run_pending
 
@@ -19,6 +20,14 @@ def getExternalIp() -> str:
 			print(f"error {e}")
 	return None
 
+def getLocalIp() -> str:
+	try:
+		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		s.connect(("8.8.8.8", 80))
+		local_ip = s.getsockname()[0]
+	finally:
+		s.close()
+	return local_ip
 
 def getHostName() -> str:
 	"""Get system hostname"""
@@ -126,8 +135,10 @@ if __name__ == "__main__":
 		urls = parsed_json["SERVICE_URLS"]
 		header_message = f"*{host_name}* (ip.check)\n"	
 		external_ip = getExternalIp()
+		local_ip = getLocalIp()
 		old_ip_address = external_ip
-		monitoring_mg = f"- current ip: *{external_ip}*\n"
+		old_ip_local = local_ip
+		monitoring_mg = f"- public ip: *{external_ip}*\n- local  ip: *{local_ip}*\n"
 		if not default_dot_style:
 			dots = square_dots
 		orange_dot, green_dot, red_dot, yellow_dot = dots["orange"], dots["green"], dots["red"], dots["yellow"]
@@ -161,11 +172,17 @@ if __name__ == "__main__":
 
 @repeat(every(min_repeat).minutes)
 def CheckIP():
-	global old_ip_address
+	monitoring_mg = ""
+	global old_ip_address, old_ip_local
 	external_ip = getExternalIp()
+	local_ip = getLocalIp()
 	if old_ip_address != external_ip: # !=
 		old_ip_address = external_ip
-		monitoring_mg = f"{orange_dot} new ip is: *{str(external_ip)}*\n"
+		monitoring_mg += f"{orange_dot} new public ip: *{str(external_ip)}*\n"
+	if old_ip_local != local_ip:
+		old_ip_local = local_ip
+		monitoring_mg += f"{orange_dot} new local ip: *{str(external_ip)}*\n"
+	if monitoring_mg:
 		SendMessage(f"{header_message}{monitoring_mg}")
 
 while True:
