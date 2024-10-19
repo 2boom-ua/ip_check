@@ -4,7 +4,7 @@
 </div>
 
 ### Overview
-This script monitors the system's external IP and internal IP addresses and sends notifications to various messaging platforms (e.g., Telegram, Discord, Gotify, Ntfy, Slack, Pushbullet, Pushover, Rocket.chat, Matrix, Mattermost, Pumble, Flock, Zulip, Custom webhook) when the external IP changes. It reads configuration settings from a config.json file, including polling intervals and service tokens. The IP is checked periodically, and if a change is detected, an alert shall be sent via the configured messaging services.
+This script monitors the system's external IP and internal IP addresses and sends notifications to various messaging platforms (e.g., Telegram, Discord, Gotify, Ntfy, Slack, Pushbullet, Pushover, Rocket.chat, Matrix, Mattermost, Pumble, Flock, Zulip, Apprise, Custom webhook) when the external IP changes. It reads configuration settings from a config.json file, including polling intervals and service tokens. The IP is checked periodically, and if a change is detected, an alert shall be sent via the configured messaging services.
 
 
 ### Features
@@ -24,6 +24,7 @@ This script monitors the system's external IP and internal IP addresses and send
   - Zulip
   - Pumble
   - Flock
+  - Apprise
   - Custom webhook
 - **Configuration:** Easily configurable through JSON files for notification settings and excluded services.
 - **Polling Period:** Adjustable polling interval to check service status.
@@ -49,7 +50,7 @@ A **config.json** file in the same directory as the script, and include your API
 ```
 {
     "TELEGRAM": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -62,7 +63,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "DISCORD": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -70,7 +71,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "SLACK": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -78,7 +79,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "GOTIFY": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -91,7 +92,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "NTFY": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -99,7 +100,7 @@ A **config.json** file in the same directory as the script, and include your API
 		]
     },
     "PUSHBULLET": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -107,7 +108,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "PUSHOVER": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -120,7 +121,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "MATRIX": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -138,7 +139,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "MATTERMOST": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -146,7 +147,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "ROCKET": {
-        "ON": false,
+        "ENABLED": false,
         "TOKENS": [
             "first tocken",
             "second tocken",
@@ -169,7 +170,7 @@ A **config.json** file in the same directory as the script, and include your API
         ]
     },
     "FLOCK": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -177,7 +178,7 @@ A **config.json** file in the same directory as the script, and include your API
 		]
     },
     "PUMBLE": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -185,7 +186,15 @@ A **config.json** file in the same directory as the script, and include your API
 		]
     },
     "ZULIP": {
-        "ON": false,
+        "ENABLED": false,
+        "WEBHOOK_URLS": [
+            "first url",
+            "second url",
+            "...."
+		]
+    },
+    "APPRISE": {
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
@@ -193,7 +202,7 @@ A **config.json** file in the same directory as the script, and include your API
 		]
     },
     "CUSTOM": {
-        "ON": false,
+        "ENABLED": false,
         "WEBHOOK_URLS": [
             "first url",
             "second url",
