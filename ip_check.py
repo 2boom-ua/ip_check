@@ -200,8 +200,11 @@ if __name__ == "__main__":
 			if config_json[service]["ENABLED"]:
 				globals().update({f"{service.lower()}_{key.lower()}": config_json[service][key] for key in keys})
 				monitoring_mg += f"- messaging: {service.capitalize()},\n"
-		monitoring_mg += f"- polling period: {min_repeat} minute(s),\n- default dot style: {default_dot_style}."
-		SendMessage(f"{header_message}{monitoring_mg}")
+		monitoring_mg += (
+			f"- default dot style: {default_dot_style}.\n"
+			f"- polling period: {min_repeat} minute(s)."
+		)
+		SendMessage(f"{header_message}hosts monitor:\n{monitoring_mg}")
 	else:
 		print("config.json not found")
 		
