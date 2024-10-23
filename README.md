@@ -261,7 +261,7 @@ A **config.json** file in the same directory as the script, and include your API
 | **MATRIX** | | |
 | ENABLED | true/false | Enable or disable Matrix notifications |
 | TOKENS | String | The token for your Matrix application |
-| SERVER_URLS | url | The URL of your Matrix server |
+| SERVER_URLS | url | The URL of your Matrix server  (or use https://matrix.org) |
 ||||
 | **MATTERMOST** | | |
 | ENABLED | true/false | Enable or disable Mattermost notifications |
