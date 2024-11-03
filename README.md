@@ -296,7 +296,7 @@ A **config.json** file in the same directory as the script, and include your API
 | **APPRISE** | | |
 | ENABLED | true/false | Enable or disable Apprise notifications |
 | WEBHOOK_URLS | url | The URL of your Apprise webhook |
-| FORMATS | markdown,<br>html,<br>text,<br>asterisk | The format(s) to be used for the notification (e.g., markdown/html/text/asterisk) |
+| FORMAT_MESSAGE | markdown,<br>html,<br>text,<br>asterisk | Specifies the message format used by each service, such as markdown, html, or other text formatting.|
 ||||
 | **CUSTOM** | | |
 | ENABLED | true/false | Enable or disable Custom notifications |
