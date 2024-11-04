@@ -166,10 +166,10 @@
         "HEADERS": [
             {"first JSON structure"},
             {"second JSON structure"},
-            ...
+            "..."
         ],
         "PYLOADS": [
-            {first JSON structure"},
+            {"first JSON structure"},
             {"second JSON structure"},
             "..."
         ],
