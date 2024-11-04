@@ -164,7 +164,7 @@
             "...."
         ],
         "HEADERS": [
-            {first JSON structure},
+            {"first JSON structure"},
             {second JSON structure},
             ...
         ],
