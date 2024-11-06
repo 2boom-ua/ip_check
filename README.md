@@ -437,7 +437,7 @@ A **config.json** file in the same directory as the script, and include your API
 
 | Item | Required | Description |
 |------------|------------|------------|
-| WEBHOOK_URLS | url | The URL of ifconfig services 
+| SERVICE_URLS | url | The URL of ifconfig services 
 
 ```
  "DEFAULT_DOT_STYLE": true,
