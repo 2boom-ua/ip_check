@@ -25,6 +25,7 @@ This script monitors the system's external IP and internal IP addresses and send
   - Pumble
   - Flock
   - Apprise
+  - Webntfy
   - Custom webhook
 - **Configuration:** Easily configurable through JSON files for notification settings and excluded services.
 - **Polling Period:** Adjustable polling interval to check service status.
