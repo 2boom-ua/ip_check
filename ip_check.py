@@ -89,11 +89,11 @@ if __name__ == "__main__":
     """Load configuration and initialize monitoring"""
     urls = []
     host_name = getHostName()
-    current_path = os.path.dirname(os.path.realpath(__file__))
+    config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json")
     dots = {"orange": "\U0001F7E0", "green": "\U0001F7E2", "red": "\U0001F534", "yellow": "\U0001F7E1"}
     square_dots = {"orange": "\U0001F7E7", "green": "\U0001F7E9", "red": "\U0001F7E5", "yellow": "\U0001F7E8"}
-    if os.path.exists(f"{current_path}/config.json"):
-        with open(f"{current_path}/config.json", "r") as file:
+    if os.path.exists(config_file):
+        with open(config_file, "r") as file:
             config_json = json.loads(file.read())
         try:
             default_dot_style = config_json.get("DEFAULT_DOT_STYLE", True)
