@@ -89,11 +89,11 @@ You can use any name and any number of records for each messaging platform confi
 - **text** - raw text without any styling or formatting.
 ```
  "SERVICE_URLS": [
-	"https://ifconfig.co/json",
-	"https://ipinfo.io/json",
-        "https://api.seeip.org/jsonip",
-	"https://api.ipify.org/?format=json"
-   ],
+      "https://ip.me",
+      "https://whatismyip.akamai.com",
+      "https://checkip.amazonaws.com",
+      "https://api.my-ip.io/ip"
+],
 ```
 
 | Item | Required | Description |
