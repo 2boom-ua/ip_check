@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#Copyright (c) 2024 2boom.
+#Copyright (c) 2024-25 2boom.
 
 
 import json
@@ -11,15 +11,38 @@ import socket
 import requests
 from schedule import every, repeat, run_pending
 
-def getExternalIp() -> str:
+
+def is_ipv6_supported():
+    try:
+        socket.create_connection(("ipv6.google.com", 80), timeout=5)
+        return True
+    except socket.error:
+        return False
+
+
+def getExternalIp():
+    ipv4 = None
+    ipv6 = None
     for url in urls:
         try:
-            response = requests.get(url)
-            external_ip = response.json()
-            return external_ip['ip']
+            ipv4_response = requests.get(url, timeout=5)
+            ipv4_response.raise_for_status()
+            ipv4 = ipv4_response.text.strip()
         except requests.RequestException as e:
-            print(f"error {e}")
+            ipv4 = None
+    
+        if is_ipv6_supported():
+            try:
+                ipv6_response = requests.get(url, timeout=5)
+                ipv6_response.raise_for_status()
+                ipv6 = ipv6_response.text.strip()
+            except requests.RequestException as e:
+                ipv6 = None
+        else:
+            ipv6 = None
+        return ipv4, ipv6
     return None
+
 
 def getLocalIp() -> str:
     try:
@@ -30,6 +53,7 @@ def getLocalIp() -> str:
         s.close()
     return local_ip
 
+
 def getHostName() -> str:
     """Get system hostname"""
     hostname = ""
@@ -38,6 +62,7 @@ def getHostName() -> str:
         with open(hostname_path, "r") as file:
             hostname = file.read().strip()
     return hostname
+
 
 def SendMessage(message: str):
     """Internal function to send HTTP POST requests with error handling"""
@@ -102,11 +127,12 @@ if __name__ == "__main__":
         except (json.JSONDecodeError, ValueError, TypeError, KeyError):
             default_dot_style = True
             min_repeat = 1
-            urls = ["https://ifconfig.co/json", "https://ipinfo.io/json"]
+            urls = ["https://ip.me", "https://whatismyip.akamai.com"]
         header_message = f"*{host_name}* (ip.check)\n"    
-        external_ip = getExternalIp()
+        external_ipv4, external_ipv6 = getExternalIp()
         local_ip = getLocalIp()
-        old_ip_address = external_ip
+        old_ip_ipv4 = external_ipv4
+        old_ip_ipv6 = external_ipv6
         old_ip_local = local_ip
         monitoring_message = monitoring_mg = ""
         if not default_dot_style:
@@ -124,9 +150,13 @@ if __name__ == "__main__":
                     else:
                         globals()[platform_key] = value if isinstance(value, list) else [value]
                 monitoring_mg += f"- messaging: {platform.lower().capitalize()},\n"
-        monitoring_message = f"- public ip: *{external_ip}*\n- local  ip: *{local_ip}*\n"
-        monitoring_message += "\n".join([*sorted(monitoring_mg.splitlines()), ""])
+        if external_ipv4:
+            monitoring_message += f"- public IPv4: *{external_ipv4}*,\n"
+        if external_ipv6:
+            monitoring_message += f"- public IPv6: *{external_ipv6}*,\n"
         monitoring_message += (
+            f"- local IP: *{local_ip}*,\n"
+            f"{chr(10).join(sorted(monitoring_mg.splitlines()))}\n"
             f"- default dot style: {default_dot_style}.\n"
             f"- polling period: {min_repeat} minute(s)."
         )
@@ -143,12 +173,15 @@ if __name__ == "__main__":
 @repeat(every(min_repeat).minutes)
 def CheckIP():
     monitoring_message = ""
-    global old_ip_address, old_ip_local
-    external_ip = getExternalIp()
+    global old_ip_ipv4, old_ip_ipv6, old_ip_local
+    external_ipv4, external_ipv6 = getExternalIp()
     local_ip = getLocalIp()
-    if old_ip_address != external_ip: # !=
-        old_ip_address = external_ip
-        monitoring_message += f"{orange_dot} new public ip: *{str(external_ip)}*\n"
+    if old_ip_ipv4 != external_ipv4: # !=
+        old_ip_ipv4 = external_ipv4
+        monitoring_message += f"{orange_dot} new public ip: *{str(external_ipv4)}*\n"
+    if old_ip_ipv6 != external_ipv6: # !=
+        old_ip_ipv6 = external_ipv6
+        monitoring_message += f"{orange_dot} new public ip: *{str(external_ipv6)}*\n"
     if old_ip_local != local_ip:
         old_ip_local = local_ip
         monitoring_message += f"{orange_dot} new local ip: *{str(external_ip)}*\n"
