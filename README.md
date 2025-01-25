@@ -110,8 +110,54 @@ You can use any name and any number of records for each messaging platform confi
 | DEFAULT_DOT_STYLE | true/false | Round/Square dots. |
 | MIN_REPEAT | 15 | Set the poll period in minutes. Minimum is 1 minute. | 
 
+
+## Docker
+```bash
+  docker build -t ip_check .
+```
+or
+```bash
+  docker pull ghcr.io/2boom-ua/ip_check:latest
+```
+### Dowload and edit config.json
+```bash
+curl -L -o ./config.json  https://raw.githubusercontent.com/2boom-ua/ip_check/main/config.json
+```
+### docker-cli
+```bash
+docker run -v ./config.json:/ip_check/config.json --name ip_check -e TZ=UTC ghcr.io/2boom-ua/ip_check:latest 
+```
+### docker-compose
+```
+version: "3.8"
+services:
+  ip_check:
+    container_name: ip_check
+    image: ghcr.io/2boom-ua/ip_check:latest
+    network_mode: "host"
+    volumes:
+      - ./config.json:/ip_check/config.json
+    environment:
+      - TZ=UTC
+    restart: always
+```
+
+```bash
+docker-compose up -d
+```
+---
 ### Running as a Linux Service
 You can set this script to run as a Linux service for continuous monitoring.
+
+### Clone the repository:
+```
+git clone https://github.com/2boom-ua/ip_check.git
+cd ip_services
+```
+### Install required Python packages:
+```
+pip install -r requirements.txt
+```
 
 Create a systemd service file:
 ```
