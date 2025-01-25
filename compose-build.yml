@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  ip_check:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ip_check
+    image: ip_check:latest
+    network_mode: "host"
+    volumes:
+      - ./config.json:/ip_check/config.json
+    environment:
+      - TZ=Europe/Kyiv
+    restart: always
+networks: {}
