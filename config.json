@@ -22,6 +22,7 @@
             "...."
         ]
     },
+   "STARTUP_MESSAGE": true,
     "SERVICE_URLS": ["https://ip.me", "https://whatismyip.akamai.com", "https://checkip.amazonaws.com", "https://api.my-ip.io/ip"],
     "DEFAULT_DOT_STYLE": true,
     "MIN_REPEAT": 15
