@@ -140,7 +140,7 @@ services:
     volumes:
       - ./config.json:/ip_check/config.json
     environment:
-      - TZ=UTC
+      - TZ=Etc/UTC
     restart: always
 ```
 
