@@ -36,16 +36,6 @@ This script monitors the system's external IP (IPv4/IPv6) and internal IP addres
 - Docker installed and running
 - Dependencies: `requests`, `schedule`
 
-### Clone the repository:
-```
-git clone https://github.com/2boom-ua/ip_check.git
-cd ip_check
-```
-### Install required Python packages:
-```
-pip install -r requirements.txt
-```
-
 ## Edit config.json:
 You can use any name and any number of records for each messaging platform configuration, and you can also mix platforms as needed. The number of message platform configurations is unlimited.
 
