@@ -39,7 +39,7 @@ This script monitors the system's external IP (IPv4/IPv6) and internal IP addres
 ### Clone the repository:
 ```
 git clone https://github.com/2boom-ua/ip_check.git
-cd check_services
+cd ip_check
 ```
 ### Install required Python packages:
 ```
