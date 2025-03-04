@@ -94,14 +94,21 @@ def getHostName() -> str:
 def SendMessage(message: str):
     """Internal function to send HTTP POST requests with error handling"""
     def SendRequest(url, json_data=None, data=None, headers=None):
-        try:
-            response = requests.post(url, json=json_data, data=data, headers=headers, timeout=(5, 10))
-            response.raise_for_status()
-            logger.info(f"Message successfully sent to {GetBaseUrl(url)}. Status code: {response.status_code}")
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Error sending message to {GetBaseUrl(url)}: {e}")
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                response = requests.post(url, json=json_data, data=data, headers=headers, timeout=(5, 10))
+                response.raise_for_status()
+                logger.info(f"Message successfully sent to {GetBaseUrl(url)}. Status code: {response.status_code}")
+                break
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Attempt {attempt + 1}/{max_attempts} - Error sending message to {GetBaseUrl(url)}: {e}")
+                if attempt == max_attempts - 1:
+                    logger.error(f"Failed to send message to {GetBaseUrl(url)} after {max_attempts} attempts")
+                else:
+                    time.sleep(2 ** attempt)
     
-    """"Converts Markdown-like syntax to HTML format."""
+    """Converts Markdown-like syntax to HTML format."""
     def toHTMLFormat(message: str) -> str:
         message = ''.join(f"<b>{part}</b>" if i % 2 else part for i, part in enumerate(message.split('*')))
         return message.replace("\n", "<br>")
