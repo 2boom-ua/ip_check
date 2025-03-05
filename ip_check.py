@@ -9,6 +9,7 @@ import sys
 import time
 import socket
 import logging
+import random
 import requests
 from schedule import every, repeat, run_pending
 from urllib.parse import urlparse
@@ -93,21 +94,24 @@ def getHostName() -> str:
 
 def SendMessage(message: str):
     """Internal function to send HTTP POST requests with error handling"""
+
     def SendRequest(url, json_data=None, data=None, headers=None):
-        max_attempts = 3
+        max_attempts = 5
         for attempt in range(max_attempts):
             try:
-                response = requests.post(url, json=json_data, data=data, headers=headers, timeout=(5, 10))
+                response = requests.post(url, json=json_data, data=data, headers=headers, timeout=(5, 20))
                 response.raise_for_status()
                 logger.info(f"Message successfully sent to {GetBaseUrl(url)}. Status code: {response.status_code}")
-                break
+                return
             except requests.exceptions.RequestException as e:
                 logger.error(f"Attempt {attempt + 1}/{max_attempts} - Error sending message to {GetBaseUrl(url)}: {e}")
                 if attempt == max_attempts - 1:
                     logger.error(f"Failed to send message to {GetBaseUrl(url)} after {max_attempts} attempts")
                 else:
-                    time.sleep(2 ** attempt)
-    
+                    backoff_time = (2 ** attempt) + random.uniform(0, 1)
+                    logger.warning(f"Retrying in {backoff_time:.2f} seconds...")
+                    time.sleep(backoff_time)
+
     """Converts Markdown-like syntax to HTML format."""
     def toHTMLFormat(message: str) -> str:
         message = ''.join(f"<b>{part}</b>" if i % 2 else part for i, part in enumerate(message.split('*')))
