@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   ip_check:
     build:
