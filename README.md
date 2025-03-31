@@ -121,7 +121,6 @@ docker run -v ./config.json:/ip_check/config.json --name ip_check -e TZ=UTC ghcr
 ```
 ### docker-compose
 ```
-version: "3.8"
 services:
   ip_check:
     container_name: ip_check
